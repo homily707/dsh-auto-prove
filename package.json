@@ -1,0 +1,56 @@
+{
+  "name": "dsh-auto-prove",
+  "version": "0.3.0",
+  "description": "Auto Prove permission mode for DeepSeek Harness: workspace-write base and an LLM judge (auto-review logic, pinnable provider) that screens every manual confirmation first.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test judge.test.js"
+  },
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  },
+  "files": [
+    "index.js",
+    "judge-route.js",
+    "client.js",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "permission",
+    "sandbox",
+    "plugin"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/homily707/dsh-auto-prove.git"
+  },
+  "homepage": "https://github.com/homily707/dsh-auto-prove#readme",
+  "bugs": {
+    "url": "https://github.com/homily707/dsh-auto-prove/issues"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": ">=3.18.4"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

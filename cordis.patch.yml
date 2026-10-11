@@ -1,0 +1,33 @@
+# dsh-auto-prove — the Auto Prove permission mode.
+#
+# The base behavior is exactly Workspace Write (sandbox: workspace-write,
+# approval: ask). The plugin adds exactly one behavior on top: an LLM judge
+# (the auto-review review logic, run through a direct OpenAI-compatible HTTP
+# endpoint) sits in front of every manual confirmation — allow grants
+# automatically, deny rejects, and judge failure or timeout leaves the ordinary
+# human prompt in place. Tool calls are NOT intercepted wholesale; only
+# requests that would ask the user are judged.
+#
+# Patch config replaces the row's `config` key wholesale, so the full preset
+# table is re-declared here (base presets verbatim + auto-prove).
+- id: permission
+  config:
+    presets:
+      read-only:
+        sandbox: read-only
+        approval: ask
+      workspace-write:
+        sandbox: workspace-write
+        approval: ask
+      auto-prove:
+        sandbox: workspace-write
+        approval: ask
+        name: 自动允许
+        description: Workspace-write sandbox; every manual confirmation is first screened by an LLM judge, humans remain the fallback.
+      danger-full-access:
+        sandbox: danger-full-access
+        approval: never
+
+- insert:
+    - id: auto-prove
+      name: dsh-auto-prove
